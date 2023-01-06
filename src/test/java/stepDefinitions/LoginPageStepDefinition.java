@@ -31,11 +31,18 @@ public class LoginPageStepDefinition {
 
 	}
 
-	@When("user enters username and password")
-	public void user_enters_username_and_password() throws InterruptedException {
+//	@When("user enters username and password")
+//	public void user_enters_username_and_password() throws InterruptedException {
+//		Thread.sleep(2000);
+//		driver.findElement(By.id("username")).sendKeys("student");
+//		driver.findElement(By.id("password")).sendKeys("Password123");
+//		
+//	}
+	@When("^user enters (.*) and (.*)$")
+	public void user_enters_username_and_password(String username , String password) throws InterruptedException {
 		Thread.sleep(2000);
-		driver.findElement(By.id("username")).sendKeys("student");
-		driver.findElement(By.id("password")).sendKeys("Password123");
+		driver.findElement(By.id("username")).sendKeys(username);
+		driver.findElement(By.id("password")).sendKeys(password);
 		
 	}
 
@@ -47,13 +54,13 @@ public class LoginPageStepDefinition {
 
 	@Then("login shoulb be successfull")
 	public void login_shoulb_be_successfull() throws InterruptedException {
-		if (driver.getPageSource().contains("Congratulations studet. You successfully logged in!") == true) {
+		if (driver.getPageSource().contains("Congratulations student. You successfully logged in!") == true) {
 			System.out.println("TEST LOGIN NOW PASSED");
 		} else {
-			System.out.println("TEST FAILED");
+			System.out.println("TEST Login Now FAILED  ");
 		}
 		Thread.sleep(2000);
-		driver.close();
+		driver.quit();
 	}
 
 }
